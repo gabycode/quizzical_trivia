@@ -1,0 +1,15 @@
+:root {
+  font-family: Karla, Inter, Avenir, Helvetica, Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: #F5F7FB;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  text-align: center;
+}
