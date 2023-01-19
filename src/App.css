@@ -1,0 +1,28 @@
+.App {
+  color: #293264;
+}
+
+.title-desc {
+  margin-bottom: 2em;
+}
+
+.title, .desc {
+  margin: .2em;
+}
+
+.start-btn {
+  font-family: 'Inter', 'sans-serif';
+  font-weight: 500;
+  border: none;
+  border-radius: 15px;
+  padding: 1em 3.8em;
+  background-color: #4D5B9E;
+  color: #F5F7FB;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.start-btn:hover,
+.start-btn:focus {
+  background-color: #455393;
+}
