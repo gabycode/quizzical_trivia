@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import Trivia from './Trivia'
 import { nanoid } from 'nanoid'
@@ -6,25 +6,35 @@ import { nanoid } from 'nanoid'
 function App() {
   const [triviaQuestions, setTriviaQuestions] = useState([])
   const [startQuiz, setStartQuiz] = useState(false)
+  const [triviaJSX, setTriviaJSX] = useState([])
 
+  useEffect(() => {
+    async function getTrivia() {
+      const res = await fetch("https://opentdb.com/api.php?amount=10&category=27&difficulty=easy&type=multiple")
+      const data = await res.json()
+     
+      setTriviaQuestions(data.results)
 
-  async function getTrivia() {
-    const res = await fetch("https://opentdb.com/api.php?amount=10&category=27&difficulty=easy&type=multiple")
-    const data = await res.json()
+    } 
+    getTrivia() 
+  }, [])
 
-    setTriviaQuestions(data.results)
-    setStartQuiz(!startQuiz)  
-    console.log(data.results)
-  }
+  useEffect(() => {
+    if(triviaQuestions.length > 0){
+      const triviaJSX = triviaQuestions.map( t => {
+        const allAnswers = [...t.incorrect_answers, t.correct_answer]
+        return (
+          <Trivia 
+            key={nanoid()} 
+            question={t.question} 
+            answers={allAnswers} 
+          />
+        )
+      });
+      setTriviaJSX(triviaJSX)
+    }
+  }, [triviaQuestions])   
   
-  const triviaJSX = triviaQuestions.map( t => (
-    <Trivia 
-      key={nanoid()}
-      question={t.question}
-      answers={t.incorrect_answers}
-    />
-  ))
-
 
   return (
     <div className="App">
@@ -35,7 +45,7 @@ function App() {
               <h1 className='title'>Quizzical</h1>
               <p className='desc'>Your favorite trivia game</p>
             </div>
-            <button className='start-btn' onClick={getTrivia}>Start quiz</button>        
+            <button className='start-btn' onClick={() => setStartQuiz(!startQuiz)}>Start quiz</button>        
           </>
       }
     </div>
