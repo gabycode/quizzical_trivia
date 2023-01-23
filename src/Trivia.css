@@ -1,0 +1,21 @@
+.trivia-question {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.answers {
+    display: flex;
+    justify-content: center;
+}
+
+.trivia-answers {
+    font-family: 'Inter', 'sans-serif';
+    font-size: 0.8rem;
+    border: 1px solid #4D5B9E;
+    width: fit-content;
+    margin: 0 1em;
+    padding: .5em 1em;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+}
