@@ -1,15 +1,16 @@
+import { useState } from 'react'
 import './Trivia.css'
 
 export default function Trivia({question, answers}) {
+  const [selectedAnswer, setSelectedAnswer] = useState([])  
     
-    const answersJSX = answers.map((answer, index) => (
+  const answersJSX = answers.map((answer, index) => (
     <div key={index} className="trivia-answers">
       {answer}
     </div>
   ))
-  console.log(answersJSX)
     return(
-        <div>
+        <div className='trivia'>
             <h1 className="trivia-question">{question}</h1>
             <div className="answers">
                 {answersJSX}
