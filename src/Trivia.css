@@ -4,8 +4,9 @@
 }
 
 .answers {
+    margin: 1em 0;
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .trivia-answers {
@@ -13,9 +14,10 @@
     font-size: 0.8rem;
     border: 1px solid #4D5B9E;
     width: fit-content;
-    margin: 0 1em;
     padding: .5em 1em;
     border-radius: 8px;
     font-weight: 500;
     cursor: pointer;
+    margin-bottom: .5em;
+    margin-right: .8em;
 }
