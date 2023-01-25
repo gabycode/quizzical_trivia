@@ -15,7 +15,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  /* align-items: center; */
   color: #293264;
   min-height: 100vh;
   max-width: 800px;
@@ -29,6 +29,10 @@
 
 .title-desc {
   margin-bottom: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .title, .desc {
@@ -41,6 +45,7 @@
   border: none;
   border-radius: 15px;
   padding: 1em 3.8em;
+  margin-top: 1em;
   background-color: #4D5B9E;
   color: #F5F7FB;
   cursor: pointer;
