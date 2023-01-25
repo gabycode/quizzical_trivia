@@ -1,20 +1,23 @@
-import { useState } from 'react'
-import './Trivia.css'
+import { useState } from "react";
+import "./Trivia.css";
+import Answer from "../components/Answer";
 
-export default function Trivia({question, answers}) {
-  const [selectedAnswer, setSelectedAnswer] = useState([])  
-    
+export default function Trivia({ question, answers }) {
+  const [selectedAnswer, setSelectedAnswer] = useState("");
+
   const answersJSX = answers.map((answer, index) => (
-    <div key={index} className="trivia-answers">
-      {answer}
+    <Answer
+      key={index}
+      answer={answer}
+      setSelectedAnswer={setSelectedAnswer}
+      selectedAnswer={selectedAnswer}
+    />
+  ));
+
+  return (
+    <div className="trivia">
+      <h1 className="trivia-question">{question}</h1>
+      <div className="answers">{answersJSX}</div>
     </div>
-  ))
-    return(
-        <div className='trivia'>
-            <h1 className="trivia-question">{question}</h1>
-            <div className="answers">
-                {answersJSX}
-            </div>
-        </div>
-    )
+  );
 }
