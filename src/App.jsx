@@ -1,55 +1,57 @@
-import { useState, useEffect } from 'react'
-import './App.css'
-import Trivia from './Trivia'
-import { nanoid } from 'nanoid'
+import { useState, useEffect } from "react";
+import "./App.css";
+import Trivia from "./Trivia";
+import { nanoid } from "nanoid";
 
 function App() {
-  const [triviaQuestions, setTriviaQuestions] = useState([])
-  const [startQuiz, setStartQuiz] = useState(false)
-  const [triviaJSX, setTriviaJSX] = useState([])
+  const [triviaQuestions, setTriviaQuestions] = useState([]);
+  const [startQuiz, setStartQuiz] = useState(false);
+  const [triviaJSX, setTriviaJSX] = useState([]);
 
   useEffect(() => {
     async function getTrivia() {
-      const res = await fetch("https://opentdb.com/api.php?amount=10&category=27&difficulty=easy&type=multiple")
-      const data = await res.json()
-     
-      setTriviaQuestions(data.results)
+      const res = await fetch(
+        "https://opentdb.com/api.php?amount=10&category=27&difficulty=easy&type=multiple"
+      );
+      const data = await res.json();
 
-    } 
-    getTrivia() 
-  }, [])
+      setTriviaQuestions(data.results);
+    }
+    getTrivia();
+  }, []);
 
   useEffect(() => {
-    if(triviaQuestions.length > 0){
-      const triviaJSX = triviaQuestions.map( t => {
-        const allAnswers = [...t.incorrect_answers, t.correct_answer]
+    if (triviaQuestions.length > 0) {
+      const triviaJSX = triviaQuestions.map((t) => {
+        const allAnswers = [...t.incorrect_answers, t.correct_answer];
         return (
-          <Trivia 
-            key={nanoid()} 
-            question={t.question} 
-            answers={allAnswers} 
-          />
-        )
+          <Trivia key={nanoid()} question={t.question} answers={allAnswers} />
+        );
       });
-      setTriviaJSX(triviaJSX)
+      setTriviaJSX(triviaJSX);
     }
-  }, [triviaQuestions])   
-  
+  }, [triviaQuestions]);
 
   return (
     <div className="App">
-      {startQuiz 
-        ? triviaJSX
-        : <>
-            <div className='title-desc'>
-              <h1 className='title'>Quizzical</h1>
-              <p className='desc'>Your favorite trivia game</p>
-            </div>
-            <button className='start-btn' onClick={() => setStartQuiz(!startQuiz)}>Start quiz</button>        
-          </>
-      }
+      {startQuiz ? (
+        triviaJSX
+      ) : (
+        <>
+          <div className="title-desc">
+            <h1 className="title">Quizzical</h1>
+            <p className="desc">Your favorite trivia game</p>
+            <button
+              className="start-btn"
+              onClick={() => setStartQuiz(!startQuiz)}
+            >
+              Start quiz
+            </button>
+          </div>
+        </>
+      )}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
