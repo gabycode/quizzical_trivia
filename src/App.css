@@ -7,7 +7,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #F5F7FB;
+  background-color: #f5f7fb;
   font-size: 16px;
 }
 
@@ -19,7 +19,7 @@
   color: #293264;
   min-height: 100vh;
   max-width: 800px;
-  margin: 5em auto;
+  margin: 1em auto;
   padding: 2em;
 }
 
@@ -35,19 +35,20 @@
   align-items: center;
 }
 
-.title, .desc {
-  margin: .2em;
+.title,
+.desc {
+  margin: 0.2em;
 }
 
 .start-btn {
-  font-family: 'Inter', 'sans-serif';
+  font-family: "Inter", "sans-serif";
   font-weight: 500;
   border: none;
   border-radius: 15px;
   padding: 1em 3.8em;
   margin-top: 1em;
-  background-color: #4D5B9E;
-  color: #F5F7FB;
+  background-color: #4d5b9e;
+  color: #f5f7fb;
   cursor: pointer;
   transition: 0.3s;
 }
