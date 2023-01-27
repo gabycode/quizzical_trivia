@@ -15,9 +15,11 @@ export default function Trivia({ question, answers }) {
   ));
 
   return (
-    <div className="trivia">
-      <h1 className="trivia-question">{question}</h1>
-      <div className="answers">{answersJSX}</div>
-    </div>
+    <>
+      <div className="trivia">
+        <h1 className="trivia-question">{question}</h1>
+        <div className="answers">{answersJSX}</div>
+      </div>
+    </>
   );
 }
