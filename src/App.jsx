@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import Trivia from "./Trivia";
+import CheckAnswersBtn from "../components/Button";
 import { nanoid } from "nanoid";
 
 function App() {
