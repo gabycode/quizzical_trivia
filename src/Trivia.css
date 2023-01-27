@@ -33,3 +33,26 @@
   background-color: #d6dbf5;
   border: none;
 }
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5em;
+}
+
+.check-answers-btn {
+  background-color: #4d5b9e;
+  border-radius: 10px;
+  color: #f5f7fb;
+  border: none;
+  padding: 1em 2em;
+  font-family: "Inter", "sans-serif";
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.check-answers-btn:hover {
+  background-color: #293264;
+}
