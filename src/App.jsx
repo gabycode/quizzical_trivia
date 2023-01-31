@@ -26,7 +26,13 @@ function App() {
       const triviaJSX = triviaQuestions.map((t) => {
         const allAnswers = [...t.incorrect_answers, t.correct_answer];
         return (
-          <Trivia key={nanoid()} question={t.question} answers={allAnswers} />
+          <Trivia
+            key={nanoid()}
+            question={t.question}
+            answers={allAnswers}
+            correctAnswer={t.correct_answer}
+            incorrectAnswers={t.incorrect_answers}
+          />
         );
       });
       setTriviaJSX(triviaJSX);
@@ -36,7 +42,10 @@ function App() {
   return (
     <div className="App">
       {startQuiz ? (
-        triviaJSX
+        <>
+          {triviaJSX}
+          <CheckAnswersBtn triviaJSX={triviaJSX} />
+        </>
       ) : (
         <>
           <div className="title-desc">
