@@ -8,6 +8,7 @@ const Answer = ({ answer, setSelectedAnswer, selectedAnswer }) => {
       }`}
       onClick={() => {
         setSelectedAnswer(answer);
+        // console.log(answer);
       }}
     >
       {answer}
