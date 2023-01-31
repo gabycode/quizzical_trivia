@@ -2,7 +2,12 @@ import { useState } from "react";
 import "./Trivia.css";
 import Answer from "../components/Answer";
 
-export default function Trivia({ question, answers }) {
+export default function Trivia({
+  question,
+  answers,
+  correctAnswer,
+  incorrectAnswers,
+}) {
   const [selectedAnswer, setSelectedAnswer] = useState("");
 
   const answersJSX = answers.map((answer, index) => (
@@ -11,6 +16,8 @@ export default function Trivia({ question, answers }) {
       answer={answer}
       setSelectedAnswer={setSelectedAnswer}
       selectedAnswer={selectedAnswer}
+      correctAnswer={correctAnswer}
+      incorrectAnswers={incorrectAnswers}
     />
   ));
 
