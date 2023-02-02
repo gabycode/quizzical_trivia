@@ -34,6 +34,12 @@
   border: none;
 }
 
+/* .correct {
+  background: #94d7a2;
+  border: none;
+  color: #293264;
+} */
+
 .btn-container {
   display: flex;
   justify-content: center;
