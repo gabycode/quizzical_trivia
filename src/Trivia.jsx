@@ -1,39 +1,44 @@
-// import { useState, useEffect } from "react";
-// import "./Trivia.css";
-// import Answer from "../components/Answer";
-// import { decode } from "html-entities";
+import { decode } from "html-entities";
 
-// export default function Trivia({
-//   question,
-//   answers,
-//   correctAnswer,
-//   onCheckAnswers,
-// }) {
-//   const [selectedAnswer, setSelectedAnswer] = useState("");
-//   const [shuffledAnswers, setShuffledAnswers] = useState([]);
+const Trivia = ({
+  questions,
+  selectedAnswers,
+  correctAnswers,
+  incorrectAnswers,
+  showAnswers,
+  handleAnswerClick,
+}) => {
+  return questions.map((question, questionIndex) => {
+    const shuffledAnswers = question.shuffledAnswers;
 
-// useEffect(() => {
-//   setShuffledAnswers(answers.sort(() => Math.random() - 0.5));
-// }, [answers]);
+    return (
+      <div className="trivia" key={questionIndex}>
+        <h2 className="trivia-question">{decode(question.question)}</h2>
+        <div className="answers">
+          {shuffledAnswers.map((answer, answerIndex) => (
+            <div
+              key={answerIndex}
+              onClick={() => {
+                handleAnswerClick(questionIndex, answer);
+              }}
+              className={`trivia-answers ${
+                showAnswers
+                  ? incorrectAnswers.includes(answer)
+                    ? "incorrect"
+                    : correctAnswers[questionIndex] === answer
+                    ? "correct"
+                    : ""
+                  : selectedAnswers[questionIndex] === answer
+                  ? "selected"
+                  : ""
+              }`}>
+              {decode(answer)}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  });
+};
 
-//   const answersJSX = shuffledAnswers.map((answer, index) => {
-//     return (
-//       <Answer
-//         key={index}
-//         answer={answer}
-//         correctAnswer={correctAnswer}
-//         setSelectedAnswer={setSelectedAnswer}
-//         selectedAnswer={selectedAnswer}
-//       />
-//     );
-//   });
-
-//   return (
-//     <>
-//       <div className="trivia">
-//         <h1 className="trivia-question">{decode(question)}</h1>
-//         <div className="answers">{answersJSX}</div>
-//       </div>
-//     </>
-//   );
-// }
+export default Trivia;
