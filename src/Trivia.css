@@ -53,7 +53,8 @@
   margin: 3em 0;
 }
 
-.check-answers-btn {
+.check-answers-btn,
+.play-again-btn {
   background-color: #4d5b9e;
   border-radius: 10px;
   color: #f5f7fb;
@@ -65,6 +66,13 @@
   transition: 0.3s;
 }
 
-.check-answers-btn:hover {
+.check-answers-btn:hover,
+.play-again-btn:hover {
   background-color: #293264;
+}
+
+.score {
+  color: #293264;
+  font-weight: 700;
+  margin-right: 1em;
 }
