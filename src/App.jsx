@@ -1,82 +1,7 @@
-// import { useState, useEffect } from "react";
-// import "./App.css";
-// import Trivia from "./Trivia";
-// import CheckAnswersBtn from "../components/Button";
-// import { nanoid } from "nanoid";
-
-// function App() {
-//   const [triviaData, setTriviaData] = useState([]);
-//   const [startQuiz, setStartQuiz] = useState(false);
-//   const [selectedAnswers, setSelectedAnswers] = useState({});
-
-//   useEffect(() => {
-//     async function getTrivia() {
-//       try {
-//         const res = await fetch(
-//           "https://opentdb.com/api.php?amount=10&category=27&difficulty=easy&type=multiple"
-//         );
-//         const data = await res.json();
-
-//         setTriviaData(data.results);
-//       } catch (error) {
-//         console.log(error);
-//       }
-//     }
-//     getTrivia();
-//   }, []);
-
-//   function handleCheckAnswers(checkAnswers) {
-//     checkAnswers();
-//   }
-
-//   // const triviaJSX = triviaData.map((t, index) => (
-//   //   <Trivia
-//   //     key={index}
-//   //     question={t.question}
-//   //     answers={[...t.incorrect_answers, t.correct_answer]}
-//   //     correctAnswer={t.correct_answer}
-//   //   />
-//   // ));
-
-//   return (
-//     <div className="App">
-//       {startQuiz ? (
-//         <>
-//           {triviaData.map((t, index) => (
-//             <Trivia
-//               key={index}
-//               question={t.question}
-//               answers={[...t.incorrect_answers, t.correct_answer]}
-//               correctAnswer={t.correct_answer}
-//             />
-//           ))}
-//           {/* {triviaJSX} */}
-//           <CheckAnswersBtn triviaData={triviaData} />
-//         </>
-//       ) : (
-//         <>
-//           <div className="title-desc">
-//             <h1 className="title">Quizzical</h1>
-//             <p className="desc">Your favorite trivia game</p>
-//             <button
-//               className="start-btn"
-//               onClick={() => setStartQuiz(!startQuiz)}
-//             >
-//               Start quiz
-//             </button>
-//           </div>
-//         </>
-//       )}
-//     </div>
-//   );
-// }
-
-// export default App;
-
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import "./Trivia.css";
-import { decode } from "html-entities";
+import Trivia from "./Trivia";
 
 const App = () => {
   const [questions, setQuestions] = useState([]);
@@ -85,10 +10,12 @@ const App = () => {
   const [incorrectAnswers, setIncorrectAnswers] = useState([]);
   const [showAnswers, setShowAnswers] = useState(false);
   const [startQuiz, setStartQuiz] = useState(false);
+  const [score, setScore] = useState("");
+  const [playAgain, setPlayAgain] = useState(false);
 
   useEffect(() => {
     fetch(
-      "https://opentdb.com/api.php?amount=10&category=27&difficulty=easy&type=multiple"
+      "https://opentdb.com/api.php?amount=10&category=31&difficulty=easy&type=multiple"
     )
       .then((res) => res.json())
       .then((data) => {
@@ -113,59 +40,56 @@ const App = () => {
   };
 
   const handleCheckAnswersClick = () => {
-    setIncorrectAnswers(
-      selectedAnswers.filter(
-        (answer, index) => answer !== correctAnswers[index]
-      )
+    const incorrectAnswers = selectedAnswers.filter(
+      (answer, index) => answer !== correctAnswers[index]
     );
+    setIncorrectAnswers(incorrectAnswers);
     setShowAnswers(true);
+
+    const correctCount = correctAnswers.filter(
+      (answer, index) => answer === selectedAnswers[index]
+    ).length;
+
+    setScore(
+      `You scored ${correctCount}/${correctAnswers.length} correct answers`
+    );
+
+    setPlayAgain(true);
   };
 
-  const trivia = questions.map((question, questionIndex) => {
-    const shuffledAnswers = question.shuffledAnswers;
-
-    return (
-      <div className="trivia" key={questionIndex}>
-        <h2 className="trivia-question">{decode(question.question)}</h2>
-        <div className="answers">
-          {shuffledAnswers.map((answer, answerIndex) => (
-            <div
-              key={answerIndex}
-              onClick={() => {
-                handleAnswerClick(questionIndex, answer);
-              }}
-              className={`trivia-answers ${
-                showAnswers
-                  ? incorrectAnswers.includes(answer)
-                    ? "incorrect"
-                    : correctAnswers[questionIndex] === answer
-                    ? "correct"
-                    : ""
-                  : selectedAnswers[questionIndex] === answer
-                  ? "selected"
-                  : ""
-              }`}
-            >
-              {decode(answer)}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  });
+  const restartTrivia = () => {
+    setSelectedAnswers([]);
+    setCorrectAnswers([]);
+    setIncorrectAnswers([]);
+    setPlayAgain(false);
+  };
 
   return (
     <div className="App">
       {startQuiz ? (
         <>
-          {trivia}
+          <Trivia
+            questions={questions}
+            selectedAnswers={selectedAnswers}
+            correctAnswers={correctAnswers}
+            incorrectAnswers={incorrectAnswers}
+            showAnswers={showAnswers}
+            handleAnswerClick={handleAnswerClick}
+            score={score}
+          />
           <div className="btn-container">
-            <button
-              className="check-answers-btn"
-              onClick={handleCheckAnswersClick}
-            >
-              Check Answers
-            </button>
+            <div className="score">{score}</div>
+            {playAgain ? (
+              <button className="play-again-btn" onClick={restartTrivia}>
+                Play Again
+              </button>
+            ) : (
+              <button
+                className="check-answers-btn"
+                onClick={handleCheckAnswersClick}>
+                Check Answers
+              </button>
+            )}
           </div>
         </>
       ) : (
@@ -175,8 +99,7 @@ const App = () => {
             <p className="desc">Your favorite trivia game</p>
             <button
               className="start-btn"
-              onClick={() => setStartQuiz(!startQuiz)}
-            >
+              onClick={() => setStartQuiz(!startQuiz)}>
               Start quiz
             </button>
           </div>
